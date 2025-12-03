@@ -44,4 +44,20 @@ Build a jar file and start the application. Test access from browser. Make some 
     -e MYSQL_USER=myuser \
     -e MYSQL_PASSWORD=mysecret \
     mysql:8.0
-   
+
+    gradle build
+
+    grep -R "DB_" -n src || grep -R "MYSQL" -n src
+
+    <img width="1235" height="104" alt="Screenshot 2025-12-03 at 10 40 16 AM" src="https://github.com/user-attachments/assets/105b0c9b-75c2-4fc5-b971-d447fc40c1aa" />
+
+    export DB_USER=myuser
+    export DB_PWD=mysecret
+    export DB_SERVER=localhost
+    export DB_NAME=myapp
+    
+    
+    
+    
+
+    
