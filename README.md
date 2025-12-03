@@ -17,12 +17,9 @@ This is very important for 2 reasons:
 You don't want to expose the password to your database by hardcoding it into the app and checking it into the repository!
 These values may change based on the environment, so you want to be able to set them dynamically when deploying the application, instead of hardcoding them.
 
-1. Clone the training repository
-
-
-     git clone https://gitlab.com/twn-devops-bootcamp/latest/07-docker/docker-exercises.git
-          cd docker-exercises
-          rm -rf .git
+    git clone https://gitlab.com/twn-devops-bootcamp/latest/07-docker/docker-exercises.git
+    cd docker-exercises
+    rm -rf .git
     git config --global user.name "Julia Davydova"
     git config --global user.email "juliada888@gmail.com"
     git init
