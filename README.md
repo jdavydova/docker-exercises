@@ -19,7 +19,8 @@ These values may change based on the environment, so you want to be able to set 
 
 1. Clone the training repository
 
-    git clone https://gitlab.com/twn-devops-bootcamp/latest/07-docker/docker-exercises.git
+
+     git clone https://gitlab.com/twn-devops-bootcamp/latest/07-docker/docker-exercises.git
    
     cd docker-exercises
     rm -rf .git
