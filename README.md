@@ -21,9 +21,8 @@ These values may change based on the environment, so you want to be able to set 
 
 
      git clone https://gitlab.com/twn-devops-bootcamp/latest/07-docker/docker-exercises.git
-   
-    cd docker-exercises
-    rm -rf .git
+          cd docker-exercises
+          rm -rf .git
     git config --global user.name "Julia Davydova"
     git config --global user.email "juliada888@gmail.com"
     git init
