@@ -28,5 +28,20 @@ These values may change based on the environment, so you want to be able to set 
     git remote add origin git@github.com:jdavydova/docker-exercises.git
     git push -u origin main
 
-   
+🔸 [EXERCISE 1: Start Mysql container]
+EXERCISE 1: Start Mysql container
+First you want to test the application locally with a mysql database. But you don't want to install Mysql, you want to get started fast, so you start it as a docker container:
+
+Start mysql container locally using the official Docker image. Set all needed environment variables.
+Export all needed environment variables for your application for connecting with the database (check variable names inside the code)
+Build a jar file and start the application. Test access from browser. Make some changes.
+
+    docker run -d \
+    --name my-mysql \
+    -p 3306:3306 \
+    -e MYSQL_ROOT_PASSWORD=rootsecret \
+    -e MYSQL_DATABASE=myapp \
+    -e MYSQL_USER=myuser \
+    -e MYSQL_PASSWORD=mysecret \
+    mysql:8.0
    
