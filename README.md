@@ -81,5 +81,73 @@ phpMyAdmin:
 
     👉 http://localhost:8082 
 
+Credentials of MySQL:
+
+    MYSQL_DATABASE=myapp
+    MYSQL_USER=myuser
+    MYSQL_PASSWORD=mysecret
+    MYSQL_ROOT_PASSWORD=rootsecret
+
+Then log in with:
+Regular user:
+
+    Username: myuser
+    Password: mysecret
+
+Or, to log in as root:
+
+    Username: root
+    Password: rootsecret
+    
 <img width="1099" height="559" alt="Screenshot 2025-12-04 at 8 51 59 AM" src="https://github.com/user-attachments/assets/034b8fb2-5612-4c54-b36d-646f79c49bf7" />
+
+🔸 [EXERCISE 3: Use docker-compose for Mysql and Phpmyadmin]
+You have 2 containers your app needs and you don't want to start them separately all the time. So you configure a docker-compose file for both:
+
+Create a docker-compose file with both containers
+Configure a volume for your DB
+Test that everything works again
+
+Stop and remove the old containers:
+
+    docker rm -f my-mysql my-phpadmin
+
+Create docker-compose.yml:
+
+    vim docker-compose.yml
+
+
+        version: "3.8"
+
+    services:
+      db:
+        image: mysql:8.0
+        container_name: my-mysql
+        environment:
+          MYSQL_ROOT_PASSWORD: rootsecret
+          MYSQL_DATABASE: myapp
+          MYSQL_USER: myuser
+          MYSQL_PASSWORD: mysecret
+        ports:
+          - "3306:3306"
+        volumes:
+          - db-data:/var/lib/mysql
+
+      phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: my-phpadmin
+        environment:
+          PMA_HOST: db
+          PMA_PORT: 3306
+        ports:
+          - "8082:80"
+        depends_on:
+          - db
+
+    volumes:
+      db-data:
+
+Run:
+    
+    docker compose up -d
 
