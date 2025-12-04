@@ -55,9 +55,31 @@ Build a jar file and start the application. Test access from browser. Make some 
     export DB_PWD=mysecret
     export DB_SERVER=localhost
     export DB_NAME=myapp
-    
-    
-    
-    
 
+    java -jar  build/libs/docker-exercises-project-1.0-SNAPSHOT.jar
+
+🔸 [EXERCISE 2: Start Mysql GUI container]
+
+Now you have a database, you want to be able to see the database data using a UI tool, so you decide to deploy phpmyadmin. Again, you don't want to install it locally, so you want to start it also as a docker container.
+
+Start phpmyadmin container using the official image.
+Access phpmyadmin from your browser and test logging in to your Mysql database
     
+    
+     docker run -d \        
+    > --name my-phpadmin \
+    > -e PMA_HOST=host.docker.internal \
+    > -e PMA_PORT=3306 \
+    > -p 8082:80 \
+    > phpmyadmin/phpmyadmin
+
+     docker-exercises git:(main) ✗ docker ps      
+    CONTAINER ID   IMAGE                   COMMAND                  CREATED          STATUS          PORTS                         NAMES
+    e1f33b13059e   phpmyadmin/phpmyadmin   "/docker-entrypoint.…"   58 seconds ago   Up 57 seconds   0.0.0.0:8082->80/tcp          my-phpadmin
+
+phpMyAdmin:
+
+    👉 http://localhost:8082 
+
+<img width="1099" height="559" alt="Screenshot 2025-12-04 at 8 51 59 AM" src="https://github.com/user-attachments/assets/034b8fb2-5612-4c54-b36d-646f79c49bf7" />
+
