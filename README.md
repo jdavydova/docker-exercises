@@ -152,3 +152,38 @@ Run:
     
     docker compose up -d
 
+🔸 [EXERCISE 4: Dockerize your Java Application]
+Now you are done with testing the application locally with Mysql database and want to deploy it on the server to make it accessible for others in the team, so they can edit information.
+
+And since your DB and DB UI are running as docker containers, you want to make your app also run as a docker container. So you can all start them using 1 docker-compose file on the server. So you do the following:
+
+Create a Dockerfile for your java application
+
+Build the JAR locally:
+
+    gradle build
+    ls build/libs
+
+Create Dockerfile (no extension)
+
+    ➜  docker-exercises git:(main) ✗ vim Dockerfile               
+
+    # Use a Java runtime
+    FROM openjdk:17.0.2-jdk
+
+    # Create work directory inside the container
+    WORKDIR /opt/app
+
+    # Copy the built JAR  into the image
+    COPY build/libs/*.jar app.jar
+
+    # The app usually runs on 8080 (Spring Boot / typical Java web app)
+    EXPOSE 8080
+
+    # Run the application
+    ENTRYPOINT ["java", "-jar", "app.jar"]
+
+Test the Dockerfile locally
+
+    docker build -t my-java-app .
+
