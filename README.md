@@ -146,6 +146,7 @@ Create docker-compose.yml:
 
     volumes:
       db-data:
+        driver: local
 
 Run:
     
