@@ -214,3 +214,7 @@ Add HTTP 8083 port for reposytory:
 Check port:
 
 <img width="704" height="208" alt="Screenshot 2025-12-05 at 10 19 48 AM" src="https://github.com/user-attachments/assets/9d9f4832-2073-42ca-af9f-b3ae77f53db5" />
+
+Go to DigitalOcean and add to firewall port 8083:
+
+<img width="1051" height="482" alt="Screenshot 2025-12-05 at 10 27 33 AM" src="https://github.com/user-attachments/assets/1f9e8dc9-12f7-419a-a65f-25e6d32c72be" />
