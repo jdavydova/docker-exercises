@@ -187,3 +187,30 @@ Test the Dockerfile locally
 
     docker build -t my-java-app .
 
+🔸 [EXERCISE 5: Build and push Java Application Docker Image]
+Now for you to be able to run your java app as a docker image on a remote server, it must be first hosted on a docker repository, so you can fetch it from there on the server. Therefore, you have to do the following:
+
+Create a docker hosted repository on Nexus
+Build the image locally and push to this repository
+
+Private Docker Repository 
+
+Create repository:
+
+<img width="971" height="746" alt="Screenshot 2025-12-05 at 10 09 29 AM" src="https://github.com/user-attachments/assets/8dbc4740-45bb-4f3a-854a-dab65ffd6849" />
+
+Create User:
+
+<img width="894" height="708" alt="Screenshot 2025-12-05 at 10 14 32 AM" src="https://github.com/user-attachments/assets/492b9db2-17f5-4fbf-8d8f-f7683342f0fc" />
+
+Create Role:
+
+<img width="752" height="794" alt="Screenshot 2025-12-05 at 10 14 51 AM" src="https://github.com/user-attachments/assets/30174ddb-ea2b-402b-a6ee-90dc5b1df2ad" />
+
+Add HTTP 8083 port for reposytory:
+
+<img width="844" height="660" alt="Screenshot 2025-12-05 at 10 23 35 AM" src="https://github.com/user-attachments/assets/d41f46da-e519-41c8-9b33-26c8704ea665" />
+
+Check port:
+
+<img width="704" height="208" alt="Screenshot 2025-12-05 at 10 19 48 AM" src="https://github.com/user-attachments/assets/9d9f4832-2073-42ca-af9f-b3ae77f53db5" />
