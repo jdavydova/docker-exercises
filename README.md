@@ -218,3 +218,11 @@ Check port:
 Go to DigitalOcean and add to firewall port 8083:
 
 <img width="1051" height="482" alt="Screenshot 2025-12-05 at 10 27 33 AM" src="https://github.com/user-attachments/assets/1f9e8dc9-12f7-419a-a65f-25e6d32c72be" />
+
+On Docker Desktop
+Go to Settings → Docker Engine
+In the JSON, add your Nexus registry:
+
+    "insecure-registries": ["167.172.125.11:8083]
+
+<img width="1222" height="535" alt="Screenshot 2025-12-06 at 4 17 52 PM" src="https://github.com/user-attachments/assets/a1a4239f-18c4-4f0a-8474-45c8f33eea1e" />
