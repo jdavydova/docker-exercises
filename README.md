@@ -1,4 +1,4 @@
-<img width="310" height="131" alt="Screenshot 2025-12-06 at 4 36 16 PM" src="https://github.com/user-attachments/assets/5cacb5ad-b2db-448b-bdff-837ba495467e" />#### This project is for the Devops bootcamp exercise for 
+#### This project is for the Devops bootcamp exercise for 
 #### "Containers - Docker" 
 
 Exercises for Module "Containers with Docker"
