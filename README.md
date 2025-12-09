@@ -1,4 +1,4 @@
-#### This project is for the Devops bootcamp exercise for 
+<img width="310" height="131" alt="Screenshot 2025-12-06 at 4 36 16 PM" src="https://github.com/user-attachments/assets/5cacb5ad-b2db-448b-bdff-837ba495467e" />#### This project is for the Devops bootcamp exercise for 
 #### "Containers - Docker" 
 
 Exercises for Module "Containers with Docker"
@@ -223,6 +223,20 @@ On Docker Desktop
 Go to Settings → Docker Engine
 In the JSON, add your Nexus registry:
 
-    "insecure-registries": ["167.172.125.11:8083]
+    "insecure-registries": ["167.172.125.11:8083"]
 
-<img width="1222" height="535" alt="Screenshot 2025-12-06 at 4 17 52 PM" src="https://github.com/user-attachments/assets/a1a4239f-18c4-4f0a-8474-45c8f33eea1e" />
+<img width="1086" height="473" alt="Screenshot 2025-12-06 at 4 36 30 PM" src="https://github.com/user-attachments/assets/dc44f20f-e568-435b-9029-d96656a8cb04" />
+
+<img width="310" height="131" alt="Screenshot 2025-12-06 at 4 36 16 PM" src="https://github.com/user-attachments/assets/a1fceac9-a563-4626-82ad-005892ec7043" />
+
+Push image to nexus repository docker:
+
+    docker images
+    
+<img width="548" height="199" alt="Screenshot 2025-12-06 at 4 43 05 PM" src="https://github.com/user-attachments/assets/bf2dcd21-79a7-45df-97ca-56cfdc49ff78" />
+
+Tag image :
+
+    docker tag my-java-app:latest 167.172.125.11:8083/my-java-app:1.0.0
+    docker push 167.172.125.11:8083/my-java-app:1.0.0
+    
