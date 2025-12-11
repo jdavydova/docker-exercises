@@ -241,6 +241,7 @@ Tag image :
 
     docker tag my-java-app:latest 167.172.125.11:8083/my-java-app:1.0.0
     docker push 167.172.125.11:8083/my-java-app:1.0.0
+    docker pull 167.172.125.11:8083/my-java-app:1.0.0
 
 
 NOTE:
