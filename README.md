@@ -241,4 +241,19 @@ Tag image :
 
     docker tag my-java-app:latest 167.172.125.11:8083/my-java-app:1.0.0
     docker push 167.172.125.11:8083/my-java-app:1.0.0
-    
+
+
+NOTE:
+ If i want get the initial admin password:
+ Run on the droplet:
+
+     docker exec -it nexus cat /nexus-data/admin.password
+
+That prints the initial admin password.
+
+Then in the browser:
+
+    Username: admin
+    Password: (the long value from admin.password)
+
+
