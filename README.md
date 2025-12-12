@@ -233,7 +233,8 @@ In the JSON, add your Nexus registry:
 
 Push image to nexus repository docker:
 
-    docker images
+    docker images 
+    docker login 167.172.125.11:8083
     
 <img width="548" height="199" alt="Screenshot 2025-12-06 at 4 43 05 PM" src="https://github.com/user-attachments/assets/bf2dcd21-79a7-45df-97ca-56cfdc49ff78" />
 
@@ -244,7 +245,7 @@ Tag image :
     docker pull 167.172.125.11:8083/my-java-app:1.0.0
 
 
-NOTE:
+### NOTE:
  If i want get the initial admin password:
  Run on the droplet:
 
@@ -256,5 +257,9 @@ Then in the browser:
 
     Username: admin
     Password: (the long value from admin.password)
+
+
+
+
 
 
