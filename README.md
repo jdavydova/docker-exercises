@@ -263,6 +263,8 @@ Security realms:
 
 <img width="997" height="639" alt="Screenshot 2025-12-12 at 9 18 21 AM" src="https://github.com/user-attachments/assets/f3f26418-0dd4-4e0c-be59-c9cc0b7f8f0a" />
 
+
+
 🔸 [EXERCISE 6: Add application to docker-compose]
 
 Add your application's docker image to docker-compose. Configure all needed env vars.
