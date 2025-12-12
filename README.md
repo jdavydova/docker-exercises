@@ -259,6 +259,31 @@ Then in the browser:
     Password: (the long value from admin.password)
 
 
+Security realms:
+
+<img width="997" height="639" alt="Screenshot 2025-12-12 at 9 18 21 AM" src="https://github.com/user-attachments/assets/f3f26418-0dd4-4e0c-be59-c9cc0b7f8f0a" />
+
+🔸 [EXERCISE 6: Add application to docker-compose]
+
+Add your application's docker image to docker-compose. Configure all needed env vars.
+TIP: Ensure you configure a health check on your mysql container by including the following in your docker-compose file:
+
+    json
+    my-java-app:
+      depends_on:
+        mysql:
+          condition: service_healthy
+     mysql:
+      healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      
+Now your app and Mysql containers in your docker-compose are using environment variables.
+
+Make all these environment variable values configurable, by setting them on the server when deploying.
+INFO: Again, since docker-compose is part of your application and checked in to the repo, it shouldn't contain any sensitive data. But also allow configuring these values from outside based on an environment
 
 
 
