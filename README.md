@@ -287,6 +287,9 @@ Now your app and Mysql containers in your docker-compose are using environment v
 Make all these environment variable values configurable, by setting them on the server when deploying.
 INFO: Again, since docker-compose is part of your application and checked in to the repo, it shouldn't contain any sensitive data. But also allow configuring these values from outside based on an environment
 
+    docker ps | grep 3306 
+    docker rm -f my-mysql
+    docker logs my-java-app
 
-
+    
 
