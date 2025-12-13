@@ -291,5 +291,73 @@ INFO: Again, since docker-compose is part of your application and checked in to 
     docker rm -f my-mysql
     docker logs my-java-app
 
+Add .env file
+
+    DB_SERVER=mysql
+    DB_USER=myuser
+    DB_PWD=mysecret
+    DB_NAME=myapp
+
+    MYSQL_ROOT_PASSWORD=rootsecret
+    MYSQL_DATABASE=myapp
+    MYSQL_USER=myuser
+    MYSQL_PASSWORD=mysecret
+
+    APP_IMAGE=159.65.101.43:8083/my-java-app:1.0.0
+
+Add docker-compose-app.yml
+
+    services:
+      mysql:
+        image: mysql:8.0
+        container_name: mysql
+        environment:
+          MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+          MYSQL_DATABASE: ${MYSQL_DATABASE}
+          MYSQL_USER: ${MYSQL_USER}
+          MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        ports:
+          - "3306:3306"
+        volumes:
+          - db-data:/var/lib/mysql
+        healthcheck:
+          test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+          interval: 10s
+          timeout: 5s
+          retries: 5
+
+      phpmyadmin:
+        image: phpmyadmin
+        container_name: phpmyadmin
+        environment:
+          PMA_HOST: mysql
+          PMA_PORT: 3306
+        ports:
+          - "8083:80"
+        depends_on:
+          - mysql
+
+      app:
+        image: ${APP_IMAGE}
+        container_name: my-java-app
+        environment:
+          DB_SERVER: ${DB_SERVER}
+          DB_NAME: ${DB_NAME}
+          DB_USER: ${DB_USER}
+          DB_PWD: ${DB_PWD}
+        ports:
+          - "8080:8080"
+        depends_on:
+          mysql:
+            condition: service_healthy
+
+    volumes:
+      db-data:
+        driver: local
+
+Run command:
+
+     docker-compose --env-file .env -f docker-compose-app.yml up -d --force-recreate
+     
     
 
