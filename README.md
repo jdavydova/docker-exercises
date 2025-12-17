@@ -429,10 +429,10 @@ From the project root:
 
 My server is amd64, so I will build & push Docker image to Nexus (multi-arch)
 
-   docker buildx build \
-      --platform linux/amd64 \
-      -t 159.65.101.43:8083/my-java-app:1.0.3 \
-      --push .
+       docker buildx build \
+          --platform linux/amd64 \
+          -t 159.65.101.43:8083/my-java-app:1.0.3 \
+          --push .
 
 (Increment tag from 1.0.2 → 1.0.3)
 
