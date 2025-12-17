@@ -401,38 +401,59 @@ On the server: docker login to Nexus registry
 
 <img width="896" height="166" alt="Screenshot 2025-12-15 at 10 45 48 AM" src="https://github.com/user-attachments/assets/a7fd8e7a-0695-4aeb-9a39-a7ca5d4a94c6" />
 
-Fix index.html “localhost” (IMPORTANT), in src/main/resources/static/index.html file:
+Edit index.html in src/main/resources/static/index.html file:
+Best change: use relative URLs:
 
-    const HOST = "159.65.101.43";
+    const response = await fetch(`/get-data`);
+    ...
+    const response = await fetch(`/update-roles`, { ... })
 
-Then rebuild + push new image tag:
+   And delete the HOST constant entirely
 
-    docker build -t my-java-app:1.0.1 .
-    docker tag my-java-app:1.0.1 159.65.101.43:8083/my-java-app:1.0.1
-    docker push 159.65.101.43:8083/my-java-app:1.0.1 
+   Why this is better:
+
+    Works locally (http://localhost:8080) and on server (http://159.65.101.43:8080) with no code changes
+    Avoids CORS issues completely
+    No need to rebuild if IP/domain changes later
+
+Optional: fix the broken image:
+put pups.jpg into src/main/resources/static/pups.jpg
+and then:
+
+    <img src="/pups.jpg" alt="user-profile">
+
+After edit the HTML we must rebuild your jar and rebuild/push the docker image again:
+From the project root:
+
+    ./gradlew clean build
+
+My server is amd64, so I will build & push Docker image to Nexus (multi-arch)
+
+   docker buildx build \
+      --platform linux/amd64 \
+      -t 159.65.101.43:8083/my-java-app:1.0.3 \
+      --push .
+
+(Increment tag from 1.0.2 → 1.0.3)
+
+Copy compose + env to the server:
+
+     scp docker-compose-app.yml deploy@159.65.101.43:/home/deploy/docker-compose.yml
+     scp .env deploy@159.65.101.43:/home/deploy/env
+
+Update env on the server:
+
+    APP_IMAGE=<NEXUS_IP>:8083/my-java-app:1.0.3
+    
+Redeploy on the droplet:
+
+    docker compose --env-file env down
+    docker compose --env-file env up -d
 
 <img width="797" height="158" alt="Screenshot 2025-12-15 at 10 53 56 AM" src="https://github.com/user-attachments/assets/d5021304-0360-4055-8b82-ef429ee1bc7d" />
 
-    mkdir -p /var/snap/docker/common/compose-app
-    
-Copy compose + env to the server:
 
-     scp docker-compose-app.yml deploy@159.65.101.43:/var/snap/docker/common/compose-app
-     scp .env deploy@159.65.101.43:/var/snap/docker/common/compose-app/
-
-Set environment variables on the server (/root/.env)
-
-    DB_SERVER=mysql
-    DB_USER=myuser
-    DB_PWD=mysecret
-    DB_NAME=myapp
-
-    MYSQL_ROOT_PASSWORD=rootsecret
-    MYSQL_DATABASE=myapp
-    MYSQL_USER=myuser
-    MYSQL_PASSWORD=mysecret
-
-    APP_IMAGE=<NEXUS_IP>:8083/my-java-app:1.0.1
+<img width="965" height="752" alt="Screenshot 2025-12-17 at 10 50 15 AM" src="https://github.com/user-attachments/assets/863b6ae4-7a5e-425c-b975-c01bcff9d42c" />
 
 
 NOTICE:
