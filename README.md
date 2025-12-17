@@ -359,5 +359,113 @@ Run command:
 
      docker-compose --env-file .env -f docker-compose-app.yml up -d --force-recreate
      
+🔸 [EXERCISE 7: Run application on server with docker-compose]    
+Finally your docker-compose file is completed and you want to run your application on the server with docker-compose. For that you need to do the following:
+
+Set insecure docker repository on server, because Nexus uses http
+Run docker login on the server to be allowed to pull the image
+Your application index.html has a hardcoded localhost as a HOST to send requests to the backend. You need to fix that and set the server IP address instead, because the server is going to be the host when you deploy the application on a remote server. (Don't forget to rebuild and push the image and if needed adjust the docker-compose file)
+Copy docker-compose.yaml to the server
+Set the needed environment variables for all containers in docker-compose
+Run docker-compose to start all 3 containers
+
+1) Configure the server to allow an insecure (HTTP) Docker registry
+
+On the server (Ubuntu):
+
+    sudo mkdir -p /etc/docker
+    sudo vim /etc/docker/daemon.json
+
+    {
+      "insecure-registries": ["159.65.101.43:8083"]
+    }
+
+
+    docker ps | grep nexus
+
+Test registry endpoint locally on the server:
+
+    curl -v http://localhost:8083/v2/
+
+    sudo mkdir -p /var/snap/docker/current/config
+    sudo vim /var/snap/docker/current/config/daemon.json
+    sudo systemctl daemon-reload
+    sudo systemctl restart snap.docker.dockerd
+    docker info | grep -i "insecure" -A 5
+
+<img width="298" height="116" alt="Screenshot 2025-12-15 at 10 41 17 AM" src="https://github.com/user-attachments/assets/991998e3-ba9f-4d18-a53a-9b8e7ce03d6b" />
+
+On the server: docker login to Nexus registry
+
+    docker login 159.65.101.43:8083
+
+<img width="896" height="166" alt="Screenshot 2025-12-15 at 10 45 48 AM" src="https://github.com/user-attachments/assets/a7fd8e7a-0695-4aeb-9a39-a7ca5d4a94c6" />
+
+Fix index.html “localhost” (IMPORTANT), in src/main/resources/static/index.html file:
+
+    const HOST = "159.65.101.43";
+
+Then rebuild + push new image tag:
+
+    docker build -t my-java-app:1.0.1 .
+    docker tag my-java-app:1.0.1 159.65.101.43:8083/my-java-app:1.0.1
+    docker push 159.65.101.43:8083/my-java-app:1.0.1 
+
+<img width="797" height="158" alt="Screenshot 2025-12-15 at 10 53 56 AM" src="https://github.com/user-attachments/assets/d5021304-0360-4055-8b82-ef429ee1bc7d" />
+
+    mkdir -p /var/snap/docker/common/compose-app
     
+Copy compose + env to the server:
+
+     scp docker-compose-app.yml deploy@159.65.101.43:/var/snap/docker/common/compose-app
+     scp .env deploy@159.65.101.43:/var/snap/docker/common/compose-app/
+
+Set environment variables on the server (/root/.env)
+
+    DB_SERVER=mysql
+    DB_USER=myuser
+    DB_PWD=mysecret
+    DB_NAME=myapp
+
+    MYSQL_ROOT_PASSWORD=rootsecret
+    MYSQL_DATABASE=myapp
+    MYSQL_USER=myuser
+    MYSQL_PASSWORD=mysecret
+
+    APP_IMAGE=<NEXUS_IP>:8083/my-java-app:1.0.1
+
+
+NOTICE:
+
+How to ad user on server to have permission run and deploy app:
+
+    adduser deploy
+
+<img width="638" height="323" alt="Screenshot 2025-12-16 at 9 28 05 AM" src="https://github.com/user-attachments/assets/fdf32110-583c-4728-b46d-e8197df673e7" />
+
+    usermod -aG sudo deploy
+    groupadd docker
+    usermod -aG docker deploy
+
+    mkdir /home/deploy/.ssh
+    cp .ssh/authorized_keys /home/deploy/.ssh/
+    chown -R deploy:deploy /home/deploy/.ssh
+    chmod 700 /home/deploy/.ssh
+    chmod 600 /home/deploy/.ssh/authorized_keys
+
+    sudo chown -R deploy:docker /var/snap/docker/common/compose-app
+    
+    exit
+
+    ssh deploy@159.65.101.43
+
+    sudo chown root:docker /var/run/docker.sock
+    sudo chmod 660 /var/run/docker.sock
+    docker ps
+
+to check:
+
+    docker logs --tail=200 my-java-app
+    
+
 
